@@ -16,21 +16,26 @@ cachorro2 = [1,0,1]
 cachorro3 = [1,1,1]
 
 # 1 => Porco, 0 => Cachorro
-dados = [porco1, porco2, porco3, cachorro1, cachorro2, cachorro3]
-classes = [1,1,1,0,0,0]
+treino_x = [porco1, porco2, porco3, cachorro1, cachorro2, cachorro3]
+treino_y = [1,1,1,0,0,0]
 
 model = LinearSVC()
-print(model.fit(dados, classes))
+print(model.fit(treino_x, treino_y))
 
 animal_misterioso = [1,1,1]
 animal_misterioso2 = [1,0,1]
 animal_misterioso3 = [1,1,0]
 animal_misterioso4 = [0,1,1]
 
-testes = [animal_misterioso, animal_misterioso2, animal_misterioso3, animal_misterioso4]
-previsoes = model.predict(testes)
-testes_classes = [0,0,1,1]
+teste_x = [animal_misterioso, animal_misterioso2, animal_misterioso3, animal_misterioso4]
+teste_y = [0,0,1,1]
 
-taxa_acertos = accuracy_score(testes_classes, previsoes) * 100
+previsoes = model.predict(teste_x)
 
+corretos = (previsoes == teste_y).sum()
+total = len(teste_x)
+taxa_acertos = (corretos / total * 100).round(2)
 print(taxa_acertos)
+taxa_acertos = (accuracy_score(teste_y, previsoes) * 100).round(2)
+print(taxa_acertos)
+
